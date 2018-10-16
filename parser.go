@@ -146,10 +146,11 @@ type Config struct {
 	MatchWithConstants bool
 	MinStringLength    int
 	MinOccurrences     int
+	IgnoreTests        bool
 }
 
 func Run(files []*ast.File, fset *token.FileSet, cfg *Config) ([]Issue, error) {
-	p := New("", "", false, cfg.MatchWithConstants, false, cfg.MinStringLength)
+	p := New("", "", cfg.IgnoreTests, cfg.MatchWithConstants, false, cfg.MinStringLength)
 	var issues []Issue
 	for _, f := range files {
 		ast.Walk(&treeVisitor{
